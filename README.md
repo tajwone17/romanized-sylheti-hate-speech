@@ -43,3 +43,38 @@ All samples were manually labeled by two native Sylheti speakers following [Face
 - Results tables and figures
 
 ### Requirements
+pip install scikit-learn pandas numpy matplotlib seaborn
+---
+
+## Results
+
+Best result: **Logistic Regression** with character 4-gram CountVectorizer features on preprocessed text.
+
+| Model | Accuracy | F1-Score |
+|-------|----------|----------|
+| Logistic Regression | 0.8356 | 0.8358 |
+| SVM | 0.8271 | 0.8272 |
+| Bernoulli NB | 0.8214 | 0.8214 |
+
+---
+
+## Citation
+
+If you use this dataset or code, please cite:
+
+```bibtex
+@inproceedings{yourkey2025,
+  author    = {Your Names},
+  title     = {Hate Speech Detection in Romanized {Sylheti}:
+               A Baseline Study Using Machine Learning},
+  booktitle = {[Conference Name]},
+  year      = {2025}
+}
+```
+
+---
+
+## License
+
+The dataset is released under [Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).  
+The code is released under the [MIT License](LICENSE).

@@ -63,8 +63,8 @@ Best result: **Logistic Regression** with character 4-gram CountVectorizer featu
 If you use this dataset or code, please cite:
 
 ```bibtex
-@inproceedings{yourkey2025,
-  author    = {Your Names},
+@inproceedings{key2025,
+  author    = {Names},
   title     = {Hate Speech Detection in Romanized {Sylheti}:
                A Baseline Study Using Machine Learning},
   booktitle = {[Conference Name]},

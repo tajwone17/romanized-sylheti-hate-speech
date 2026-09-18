@@ -1,100 +1,166 @@
-# Romanized Sylheti Hate Speech Dataset
+# SylHate: Romanized Sylheti Hate Speech Dataset
 
-This repository contains the dataset, stopword list, and baseline code for the paper:
+This repository contains a Romanized Sylheti hate speech dataset, a curated stopword list, and the baseline code used for experimentation on this task.
 
-> **Hate Speech Detection in Romanized Sylheti: A Baseline Study Using Machine Learning**  
-> [Author Names] — [Conference Name, Year]
+---
+
+## Overview
+
+Romanized Sylheti is a low-resource, informal, and highly variable dialect commonly used on social media. This project provides the first publicly organized dataset and baseline workflow for hate speech detection in Romanized Sylheti.
+
+The repository includes:
+
+- A manually labeled dataset of 7,054 Romanized Sylheti comments
+- A custom stopword list of 157 terms
+- Preprocessing and feature engineering scripts
+- Classical machine learning baselines
+- A multilingual transformer baseline for comparison
+- Reproducible notebooks for training and evaluation
+
+---
+
+## Conference and Author Information
+
+The work was prepared for the following conference context:
+
+- IEEE 3rd International Conference on Computing, Applications and Systems (COMPAS 2026)
+- Date: 9–10 October 2026
+- Venue: University of Dhaka, Bangladesh
+
+### Authors
+
+- Jakaria Chowdhury Tajwone  
+  Department of CSE, North East University Bangladesh, Sylhet, Bangladesh  
+  0562310005101031@neub.edu.bd
+
+- Mst. Fahimajjman Jaina  
+  Department of CSE, North East University Bangladesh, Sylhet, Bangladesh  
+  0562310005101045@neub.edu.bd
+
+- Snehasish Saha Roy Akash  
+  Department of CSE, North East University Bangladesh, Sylhet, Bangladesh  
+  0562310005101040@neub.edu.bd
+
+- Arif Ahmad  
+  Department of CSE, North East University Bangladesh, Sylhet, Bangladesh  
+  arif@neub.edu.bd
 
 ---
 
 ## Dataset
 
-The dataset contains **7,054 manually annotated social media samples** in Romanized Sylheti (Sylheti written in Latin script).
+The full dataset is stored in the repository under:
 
-| Split       | Hate Speech       | Non-Hate Speech   | Total     |
-| ----------- | ----------------- | ----------------- | --------- |
-| Train (80%) | 3,025             | 2,618             | 5,643     |
-| Test (20%)  | 756               | 655               | 1,411     |
-| **Total**   | **3,781 (53.6%)** | **3,273 (46.4%)** | **7,054** |
+- `Dataset/romanized_sylheti_hate_speech.csv`
+- `Dataset/romanized_sylheti_stopwords.txt`
 
-### Sources
+### Dataset statistics
 
-- **3,044 samples**: Converted from the [BIDWESH dataset](https://arxiv.org/abs/2507.16183) into Romanized Sylheti
-- **4,010 samples**: Directly collected from Facebook
+| Split       |   Hate Speech | Non-Hate Speech | Total |
+| ----------- | ------------: | --------------: | ----: |
+| Train (80%) |         3,024 |           2,619 | 5,643 |
+| Test (20%)  |           756 |             655 | 1,411 |
+| Total       | 3,780 (53.6%) |   3,274 (46.4%) | 7,054 |
 
-### Annotation
+### Data sources
 
-All samples were manually labeled by two native Sylheti speakers following [Facebook's Community Standards](https://transparency.fb.com/policies/community-standards/hate-speech/).
+- 3,044 samples converted from a Bangla regional hate speech dataset into Romanized Sylheti
+- 4,010 Facebook comments collected manually from public pages and discussions
 
-- `1` = Hate speech
-- `0` = Non-hate speech
+### Annotation protocol
+
+The annotation work was conducted by two native Sylheti speakers.
+
+- Label `1`: hate speech
+- Label `0`: non-hate speech
+
+The dataset includes consistent label assignment and was checked for duplicate and near-duplicate content.
 
 ---
 
 ## Stopword List
 
-`Dataset/romanized_sylheti_stopwords.txt` contains the **final Romanized Sylheti stopword list (157 words)** used in this repository.
+The repository includes a curated Romanized Sylheti stopword list:
 
-### How the Stopword List Was Selected
+- `Dataset/romanized_sylheti_stopwords.txt`
 
-The full stopword-generation workflow is implemented in `codes/SylHeti_Stopword_Generator.ipynb`:
+This list contains 157 stopwords and was built from corpus-based frequency analysis and reviewed by native speakers. It was specifically designed to keep function words while excluding words that may carry hateful or semantic meaning.
 
-1. Clean and tokenize the Romanized Sylheti corpus.
-2. Compute overall word frequency.
-3. Split frequency by class (Hate vs Non-Hate).
-4. Compute `hate_ratio` for each word.
-5. Automatically select stopword candidates using frequency and hate-ratio thresholds.
-6. Manually review the candidates with dataset annotators to remove meaningful/discriminative words.
+The stopword generation workflow is available in:
 
-Important notes:
+- `codes/SylHeti_Stopword_Generator.ipynb`
 
-- The automatic filtering stage produced **163 stopword candidates**.
-- After annotator review (removing meaningful words), the curated repository list contains **157 final stopwords**.
+The stopword list was created to support preprocessing for this dataset and can be used in experiments or future research.
 
 ---
 
-## Code
+## Code and Experiments
 
-`codes/sylheti_hate_speech_detection.ipynb` contains the full pipeline:
+The main experimental pipeline is in:
 
-- Data loading and preprocessing
-- Feature extraction (CountVectorizer, TF-IDF, word and character n-grams)
-- Training and evaluation of 10 ML models
-- Results tables and figures
+- `codes/sylheti_hate_speech_detection.ipynb`
 
-### Requirements
+The notebook covers:
 
-## pip install scikit-learn pandas numpy matplotlib seaborn
+- Dataset loading and preprocessing
+- Cleaning and normalization of Romanized Sylheti text
+- Stopword filtering
+- Feature extraction using CountVectorizer and TF-IDF
+- Word n-grams and character n-grams
+- Training on multiple machine learning models
+- Evaluation and comparison with transformer baselines
 
-## Results
+### Models evaluated
 
-Best result: **Logistic Regression** with character 4-gram CountVectorizer features on preprocessed text.
-
-| Model               | Accuracy | F1-Score |
-| ------------------- | -------- | -------- |
-| Logistic Regression | 0.8356   | 0.8358   |
-| SVM                 | 0.8271   | 0.8272   |
-| Bernoulli NB        | 0.8214   | 0.8214   |
+- Logistic Regression
+- Support Vector Machine (SVM)
+- Random Forest
+- Bernoulli Naive Bayes
+- Multinomial Naive Bayes
+- Decision Tree
+- Gaussian Naive Bayes
+- K-Nearest Neighbors
 
 ---
 
-## Citation
+## Repository Structure
 
-If you use this dataset or code, please cite:
-
-```bibtex
-@inproceedings{key2025,
-  author    = {Names},
-  title     = {Hate Speech Detection in Romanized {Sylheti}:
-               A Baseline Study Using Machine Learning},
-  booktitle = {[Conference Name]},
-  year      = {2025}
-}
+```text
+romanized-sylheti-hate-speech/
+├── README.md
+├── Dataset/
+│   ├── romanized_sylheti_hate_speech.csv
+│   └── romanized_sylheti_stopwords.txt
+├── codes/
+│   ├── sylheti_hate_speech_detection.ipynb
+│   └── SylHeti_Stopword_Generator.ipynb
+├── Figures/
+│   └── (visuals and result plots)
+└── LICENSE
 ```
+
+---
+
+## Setup
+
+This project is implemented in Python, primarily using Jupyter notebooks and standard scientific libraries.
+
+Recommended dependencies:
+
+```bash
+pip install pandas numpy scikit-learn matplotlib seaborn jupyter
+```
+
+Open the notebook in `codes/sylheti_hate_speech_detection.ipynb` to reproduce the full pipeline.
 
 ---
 
 ## License
 
-The dataset is released under [Creative Commons Attribution 4.0 (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).  
-The code is released under the [MIT License](LICENSE).
+This project is released for academic and research use. Please refer to the repository license and dataset usage terms when reusing the materials.
+
+---
+
+## Contact
+
+For questions regarding the dataset, methodology, or project usage, contact the authors listed above.

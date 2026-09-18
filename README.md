@@ -14,7 +14,7 @@ The repository includes:
 - A custom stopword list of 157 terms
 - Preprocessing and feature engineering scripts
 - Classical machine learning baselines
-- A multilingual transformer baseline for comparison
+- A multilingual transformer baseline using mBERT
 - Reproducible notebooks for training and evaluation
 
 ---
@@ -108,7 +108,8 @@ The notebook covers:
 - Feature extraction using CountVectorizer and TF-IDF
 - Word n-grams and character n-grams
 - Training on multiple machine learning models
-- Evaluation and comparison with transformer baselines
+- Fine-tuning a multilingual transformer baseline (mBERT / bert-base-multilingual-cased)
+- Evaluation and comparison between classical models and transformer results
 
 ### Models evaluated
 
@@ -120,6 +121,11 @@ The notebook covers:
 - Decision Tree
 - Gaussian Naive Bayes
 - K-Nearest Neighbors
+- mBERT transformer baseline
+
+### Transformer baseline
+
+The repository also includes a transformer-based experiment using `bert-base-multilingual-cased`, trained on the same dataset for comparison with the traditional ML pipelines.
 
 ---
 
